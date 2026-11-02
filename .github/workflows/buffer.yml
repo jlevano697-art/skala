@@ -9,6 +9,10 @@ on:
         description: "Listar organizaciones, canales y tipos de post de la cuenta de Buffer de Skala (no muestra la clave)"
         type: boolean
         default: false
+      publicar_ahora:
+        description: "ID del video ya programado en Buffer que se publica YA (vacío = nada)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
@@ -30,8 +34,13 @@ jobs:
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: node scripts/enviar_a_buffer.mjs --diagnostico
+      - name: Publicar ahora
+        if: ${{ inputs.publicar_ahora != '' && inputs.publicar_ahora != null }}
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: node scripts/enviar_a_buffer.mjs --ahora "${{ inputs.publicar_ahora }}"
       - name: Enviar a Buffer lo aprobado
-        if: ${{ !inputs.diagnostico }}
+        if: ${{ !inputs.diagnostico && !inputs.publicar_ahora }}
         env:
           # Seguro por defecto: solo publica si la variable de repositorio MODO vale "real".
           MODO: ${{ vars.MODO }}

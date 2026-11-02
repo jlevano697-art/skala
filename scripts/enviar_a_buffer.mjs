@@ -102,8 +102,28 @@ async function crearPost(item, canal, url) {
   return r.post.id;
 }
 
+// Publicar YA un video que ya está programado en Buffer (lo pide el usuario a mano).
+async function publicarAhora(id) {
+  const item = cola.find((x) => x.id === id);
+  if (!item) throw new Error(`No hay ningún video "${id}" en la cola`);
+  if (item.estado !== "en_buffer" || !item.buffer?.length) throw new Error(`"${id}" no está programado en Buffer (estado: ${item.estado})`);
+  for (const b of item.buffer) {
+    const r = (await gql(`mutation { editPost(input: { id: ${esc(b.post_id)}, mode: shareNow, schedulingType: automatic }) {
+      ... on PostActionSuccess { post { id } }
+      ... on MutationError { message }
+    } }`)).editPost;
+    if (r.message) throw new Error(`Buffer no pudo publicarlo ahora en ${b.canal}: ${r.message}`);
+    log(`Publicando ahora: ${id} en ${b.canal}`);
+  }
+  item.fecha = new Date().toISOString();
+  item.publicado_ahora = item.fecha;
+  writeFileSync(rutaCola, JSON.stringify(cola, null, 2) + "\n", "utf8");
+}
+
 async function main() {
   if (process.argv.includes("--diagnostico")) return diagnostico();
+  const ahora = process.argv.indexOf("--ahora");
+  if (ahora > 0) return publicarAhora(process.argv[ahora + 1]);
   const dia = (d) => new Date(d).toLocaleDateString("en-CA", { timeZone: "America/Lima" });
   const programadas = cola.filter((x) => ["en_buffer", "publicado"].includes(x.estado));
   const limite = new Date(AHORA.getTime() + ANTICIPACION_HORAS * 3600e3);
