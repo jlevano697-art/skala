@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "prueba-conexion",
+    "titulo": "Prueba de conexión (no se publica)",
+    "fecha": "2026-11-03T01:09:00-05:00",
+    "video": "README.md",
+    "pie": "Prueba",
+    "aprobado": true,
+    "estado": "pendiente"
+  }
+]
