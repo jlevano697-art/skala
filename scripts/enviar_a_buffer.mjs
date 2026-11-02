@@ -107,8 +107,14 @@ async function publicarAhora(id) {
   const item = cola.find((x) => x.id === id);
   if (!item) throw new Error(`No hay ningún video "${id}" en la cola`);
   if (item.estado !== "en_buffer" || !item.buffer?.length) throw new Error(`"${id}" no está programado en Buffer (estado: ${item.estado})`);
+  // editPost reemplaza el post: hay que reenviar texto y video junto con la orden de publicar ya.
+  const url = `${MEDIA_BASE}/${item.video.split("/").map(encodeURIComponent).join("/")}`;
   for (const b of item.buffer) {
-    const r = (await gql(`mutation { editPost(input: { id: ${esc(b.post_id)}, mode: shareNow, schedulingType: automatic }) {
+    const r = (await gql(`mutation { editPost(input: {
+      id: ${esc(b.post_id)}, mode: shareNow, schedulingType: automatic, text: ${esc(item.pie)},
+      ${metadata(b.canal.split(":")[0])}
+      assets: [{ video: { url: ${esc(url)}, metadata: { thumbnailOffset: 1500 } } }]
+    }) {
       ... on PostActionSuccess { post { id } }
       ... on MutationError { message }
     } }`)).editPost;
