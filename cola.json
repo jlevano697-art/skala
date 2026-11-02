@@ -10,13 +10,20 @@
       "tiktok"
     ],
     "aprobado": true,
-    "estado": "pendiente",
+    "estado": "en_buffer",
     "prueba": {
       "ok": true,
       "canales": [
         "tiktok:skala_agenciamark"
       ],
       "revisado": "2026-11-02T06:13:45.277Z"
-    }
+    },
+    "buffer": [
+      {
+        "canal": "tiktok:skala_agenciamark",
+        "post_id": "6ae82a6376279ec7eb9729d7"
+      }
+    ],
+    "enviado_en": "2026-11-02T06:14:59.346Z"
   }
 ]
