@@ -116,7 +116,9 @@ async function main() {
       const url = `${MEDIA_BASE}/${item.video.split("/").map(encodeURIComponent).join("/")}`;
       const r = await fetch(url, { method: "HEAD" });
       if (!r.ok) throw new Error(`El video no es público todavía: ${url} (${r.status})`);
-      const destinos = await canales();
+      // Si el video indica redes (p. ej. ["tiktok"]), solo va a esas.
+      const destinos = (await canales()).filter((c) => !item.servicios?.length || item.servicios.includes(c.service));
+      if (!destinos.length) throw new Error(`Ninguna cuenta conectada coincide con ${item.servicios.join(", ")}`);
       if (MODO !== "real") {
         log(`PRUEBA OK: "${item.id}" iría a ${destinos.map((c) => `${c.service} (${c.name})`).join(", ")} para ${item.fecha}. No se llamó a createPost.`);
         item.prueba = { ok: true, canales: destinos.map((c) => `${c.service}:${c.name}`), revisado: new Date().toISOString() };
