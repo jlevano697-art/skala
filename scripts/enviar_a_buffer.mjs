@@ -46,6 +46,13 @@ async function diagnostico() {
       console.log(`No pude listar canales de ${o.id}: ${e.message}`);
     }
   }
+  // Estructura de las acciones de publicar/editar/borrar (solo lectura)
+  for (const n of ["ShareMode", "DeletePostInput", "EditPostInput", "DeletePostPayload", "EditPostPayload"]) {
+    try {
+      const t = await gql(`query { __type(name: ${esc(n)}) { kind enumValues { name } inputFields { name type { name kind ofType { name } } } possibleTypes { name } } }`);
+      console.log(`Tipo ${n}:`, JSON.stringify(t.__type));
+    } catch (e) { console.log(`Tipo ${n}: ${e.message}`); }
+  }
   try {
     const t = await gql(`query { __type(name: "PostType") { enumValues { name } } }`);
     console.log("Tipos de post:", JSON.stringify(t.__type?.enumValues?.map((v) => v.name)));
