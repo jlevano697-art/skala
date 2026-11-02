@@ -6,6 +6,15 @@
     "video": "README.md",
     "pie": "Prueba",
     "aprobado": true,
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "prueba": {
+      "ok": true,
+      "canales": [
+        "instagram:skala_agenciamarketing",
+        "facebook:SkalaMarketing",
+        "tiktok:skala_agenciamark"
+      ],
+      "revisado": "2026-11-02T06:09:25.735Z"
+    }
   }
 ]
