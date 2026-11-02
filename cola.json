@@ -39,7 +39,7 @@
       "facebook"
     ],
     "aprobado": true,
-    "estado": "pendiente",
+    "estado": "en_buffer",
     "prueba": {
       "ok": true,
       "canales": [
@@ -47,6 +47,17 @@
         "tiktok:skala_agenciamark"
       ],
       "revisado": "2026-11-02T06:37:49.202Z"
-    }
+    },
+    "buffer": [
+      {
+        "canal": "facebook:SkalaMarketing",
+        "post_id": "6ae82fe276279ec7eb98a548"
+      },
+      {
+        "canal": "tiktok:skala_agenciamark",
+        "post_id": "6ae82fe2759fc887b6d1c061"
+      }
+    ],
+    "enviado_en": "2026-11-02T06:38:26.946Z"
   }
 ]
