@@ -103,13 +103,17 @@ async function crearPost(item, canal, url) {
 }
 
 // Publicar YA un video que ya está programado en Buffer (lo pide el usuario a mano).
-async function publicarAhora(id) {
+// id o "id:tiktok" para publicar ya solo en esa red; las demás siguen programadas.
+async function publicarAhora(pedido) {
+  const [id, soloRed] = pedido.split(":");
   const item = cola.find((x) => x.id === id);
   if (!item) throw new Error(`No hay ningún video "${id}" en la cola`);
   if (item.estado !== "en_buffer" || !item.buffer?.length) throw new Error(`"${id}" no está programado en Buffer (estado: ${item.estado})`);
   // editPost reemplaza el post: hay que reenviar texto y video junto con la orden de publicar ya.
   const url = `${MEDIA_BASE}/${item.video.split("/").map(encodeURIComponent).join("/")}`;
-  for (const b of item.buffer) {
+  const elegidos = item.buffer.filter((b) => !soloRed || b.canal.startsWith(soloRed + ":"));
+  if (!elegidos.length) throw new Error(`"${id}" no está programado en ${soloRed}`);
+  for (const b of elegidos) {
     const r = (await gql(`mutation { editPost(input: {
       id: ${esc(b.post_id)}, mode: shareNow, schedulingType: automatic, text: ${esc(item.pie)},
       ${metadata(b.canal.split(":")[0])}
@@ -120,9 +124,9 @@ async function publicarAhora(id) {
     } }`)).editPost;
     if (r.message) throw new Error(`Buffer no pudo publicarlo ahora en ${b.canal}: ${r.message}`);
     log(`Publicando ahora: ${id} en ${b.canal}`);
+    b.publicado_ahora = new Date().toISOString();
   }
-  item.fecha = new Date().toISOString();
-  item.publicado_ahora = item.fecha;
+  if (item.buffer.every((b) => b.publicado_ahora)) item.publicado_ahora = new Date().toISOString();
   writeFileSync(rutaCola, JSON.stringify(cola, null, 2) + "\n", "utf8");
 }
 
