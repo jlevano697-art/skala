@@ -26,5 +26,19 @@
     ],
     "enviado_en": "2026-11-02T06:14:59.346Z",
     "publicado_ahora": "2026-11-02T06:19:11.724Z"
+  },
+  {
+    "id": "video-1-presentacion-de-skala",
+    "titulo": "Vídeo 1 - Presentación de Skala",
+    "version": 1,
+    "fecha": "2026-11-03T13:00:00-05:00",
+    "video": "publicar/video-1-presentacion-de-skala.mp4",
+    "pie": "¿Una tienda de ropa y un consultorio necesitan la misma estrategia? 🤔 No.\n\nEn Skala empezamos escuchándote: analizamos tu negocio y diseñamos una estrategia según lo que necesitas.\n\nCreamos contenido, páginas web y campañas publicitarias para dar a conocer tu marca y ayudarte a vender. 🚀\n\n👉 Escríbenos y cuéntanos qué quieres lograr con tu negocio.\n\n#Skala #MarketingDigital #EstrategiaDigital #Emprendedores #NegociosPeru #Lima #PaginaWeb",
+    "servicios": [
+      "tiktok",
+      "facebook"
+    ],
+    "aprobado": true,
+    "estado": "pendiente"
   }
 ]
