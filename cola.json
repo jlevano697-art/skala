@@ -70,6 +70,21 @@
     "pie": "¿Tienes un negocio en el Cono Norte? 🎃🎄🎆\n\nSe acercan Halloween, Navidad y Año Nuevo: las fechas para mostrar tus productos, destacar tus promociones y llegar a más personas.\n\nEn Skala creamos videos profesionales, gestionamos redes sociales, campañas publicitarias y páginas web.\n\nNo dejes tu campaña para el último momento. Comenta SKALA y te escribimos con más información 👇\n\n#Skala #MarketingDigital #ConoNorte #Lima #Emprendedores #Navidad #Halloween",
     "servicios": [],
     "aprobado": true,
-    "estado": "pendiente"
+    "estado": "en_buffer",
+    "buffer": [
+      {
+        "canal": "instagram:skala_agenciamarketing",
+        "post_id": "6af18ee805fdd541fbcdb6ec"
+      },
+      {
+        "canal": "facebook:SkalaMarketing",
+        "post_id": "6af18ee805fdd541fbcdb730"
+      },
+      {
+        "canal": "tiktok:skala_agenciamark",
+        "post_id": "6af18ee93c216aaffd96c1ca"
+      }
+    ],
+    "enviado_en": "2026-11-09T09:14:17.235Z"
   }
 ]
